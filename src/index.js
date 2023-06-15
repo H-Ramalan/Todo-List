@@ -1,49 +1,63 @@
 import "./style.css";
-// import removeTask from "./modules/removetask";
-// import addTask from "./modules/addtasks";
 
-const add = document.querySelector(".btn");
+// const add = document.querySelector(".btn");
 const todoList = document.querySelector(".todo-list");
-const deleteBtn = document.querySelector("#close");
-
-const todos = JSON.parse(localStorage.getItem("todos")) || [];
-
+const clearBtn = document.querySelector(".clear-btn");
+let todos = JSON.parse(localStorage.getItem("todos")) || [];
 function saveTasks() {
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 function addTask(e) {
+  e.preventDefault();
   const taskInput = document.querySelector(".task-input");
+  const taskText = taskInput.value.trim(); // Remove leading and trailing whitespace
+  if (taskText === "") {
+    return; // Do not add task if it’s empty
+  }
   const newTask = {
     id: todos.length + 1,
     completed: false,
-    task: taskInput.value,
+    task: taskText,
   };
   todos.push(newTask);
-  e.preventDefault();
-
+  taskInput.value = ""; // Clear the task input field
   saveTasks();
+  displayTasks();
 }
-
-function removeTask(index) {
-  tasks.splice(index, 1);
-
-  for (let i = index; i < tasks.length; i++) {
-    tasks[i].index = i + 1;
-  }
-
+function removeTask(id) {
+  todos = todos.filter((task) => task.id !== id);
   saveTasks();
+  displayTasks();
 }
-
-add.addEventListener("submit", addTask);
-deleteBtn.addEventListener("click", removeTask);
-
+const form = document.querySelector(".form");
+form.addEventListener("submit", addTask);
 function displayTasks() {
-  todos.forEach((todos) => {
+  todoList.innerHTML = ""; // Clear the HTML todo list
+  todos.forEach((task) => {
     const li = document.createElement("li");
     li.className = "list-item";
-    li.innerHTML = `<input type="checkbox" class="check" /> ${todos.task} <span class="material-icons" id="close">close</span>`;
+    li.innerHTML = `
+      <input type="checkbox" class="check" />
+      ${task.task}
+      <span class="material-icons close" data-id="${task.id}">close</span>
+    `;
     todoList.appendChild(li);
   });
-  saveTasks();
+  // Add event listeners for the close buttons
+  const closeButtons = document.querySelectorAll(".close");
+  closeButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const taskId = parseInt(e.target.dataset.id);
+      removeTask(taskId);
+    });
+  });
 }
+function clearTasks() {
+  const checkedItems = document.querySelectorAll(".check:checked");
+  checkedItems.forEach((item) => {
+    const taskId = parseInt(item.nextElementSibling.dataset.id);
+    removeTask(taskId);
+  });
+}
+clearBtn.addEventListener("click", clearTasks);
 displayTasks();

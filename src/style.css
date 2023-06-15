@@ -3,60 +3,54 @@
   padding: 0;
   box-sizing: border-box;
 }
-
 .body {
   display: flex;
   flex-direction: column;
   height: 50%;
   width: 70%;
   justify-content: center;
+  margin: 0 auto;
+  padding: 20px;
 }
-
 h1 {
   text-align: center;
-  margin: 3% 0;
+  margin: 10px 0;
 }
-
 .form {
-  margin: 3% 5%;
+  margin: 10px 0;
+  display: flex;
 }
-
 .btn {
   padding: 10px;
-  width: 24%;
+  width: 29%;
 }
-
-#close {
-  margin-left: 80%;
+.close {
+  margin-left: 10px;
+  cursor: pointer;
 }
-
 .check {
-  margin-right: 4%;
+  margin-right: 10px;
 }
-
 .task-input {
   padding: 10px;
   width: 70%;
 }
-
 .clear-btn {
   padding: 15px;
   font-size: 20px;
-  margin: 5%;
+  margin: 10px 0;
 }
-
 .list-item {
   font-size: 20px;
   border-bottom: 1px solid black;
   padding: 15px 0;
   display: flex;
+  align-items: center;
 }
-
 .todo-list {
   list-style: none;
-  margin: 0 5%;
+  margin: 10px 0;
 }
-
 .delete {
   height: 20%;
 }
