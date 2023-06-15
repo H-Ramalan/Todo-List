@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 .body {
   display: flex;
   flex-direction: column;
@@ -12,45 +13,61 @@
   margin: 0 auto;
   padding: 20px;
 }
+
 h1 {
   text-align: center;
   margin: 10px 0;
+  width: 50%;
 }
+
 .form {
+  width: 50%;
   margin: 10px 0;
   display: flex;
 }
+
 .btn {
   padding: 10px;
   width: 29%;
 }
+
 .close {
   margin-left: 10px;
   cursor: pointer;
 }
+
 .check {
   margin-right: 10px;
 }
+
 .task-input {
   padding: 10px;
   width: 70%;
+  margin-right: 20px;
 }
+
 .clear-btn {
   padding: 15px;
   font-size: 20px;
   margin: 10px 0;
+  width: 50%;
 }
+
 .list-item {
   font-size: 20px;
   border-bottom: 1px solid black;
   padding: 15px 0;
   display: flex;
+  justify-content: space-between;
   align-items: center;
 }
+
 .todo-list {
   list-style: none;
   margin: 10px 0;
+  width: 50%;
 }
+
 .delete {
   height: 20%;
 }
