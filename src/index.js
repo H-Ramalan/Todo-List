@@ -8,6 +8,11 @@ function saveTasks() {
   localStorage.setItem('todos', JSON.stringify(todos));
 }
 
+function removeTask(id) {
+  todos = todos.filter((task) => task.id !== id);
+  saveTasks();
+}
+
 function displayTasks() {
   todoList.innerHTML = '';
 
@@ -27,6 +32,7 @@ function displayTasks() {
     button.addEventListener('click', (e) => {
       const taskId = parseInt(e.target.dataset.id, 10);
       removeTask(taskId);
+      displayTasks();
     });
   });
 }
@@ -51,12 +57,6 @@ const addTask = (e) => {
   saveTasks();
   displayTasks();
 };
-
-function removeTask(id) {
-  todos = todos.filter((task) => task.id !== id);
-  saveTasks();
-  displayTasks();
-}
 
 const form = document.querySelector('.form');
 form.addEventListener('submit', addTask);
