@@ -1,13 +1,27 @@
-import _ from "lodash";
-import "./style.css";
+import './style.css';
 
-function component() {
-  const element = document.createElement("div");
-  const btn = document.createElement("button");
+const todoList = document.querySelector('.todo-list');
+const todos = [
+  {
+    index: 1,
+    completed: true,
+    task: 'Wash the dish',
+  },
+  {
+    index: 2,
+    completed: true,
+    task: 'Go to the gym',
+  },
+];
 
-  element.innerHTML = _.join(["Hello", "webpack"], " ");
+function displayTasks() {
+  todos.forEach((todos) => {
+    const li = document.createElement('li');
+    li.className = 'list-item';
 
-  return element;
+    li.innerHTML = `<input type="checkbox" class="check" /> ${todos.task} <span class="material-icons" id="close">close</span>`;
+
+    todoList.appendChild(li);
+  });
 }
-
-document.body.appendChild(component());
+displayTasks();

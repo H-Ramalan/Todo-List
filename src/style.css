@@ -1,3 +1,62 @@
-body {
-  background-color: bisque;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  width: 70%;
+  justify-content: center;
+}
+
+h1 {
+  text-align: center;
+  margin: 3% 0;
+}
+
+.form {
+  margin: 3% 5%;
+}
+
+.btn {
+  padding: 10px;
+  width: 24%;
+}
+
+#close {
+  margin-left: 80%;
+}
+
+.check {
+  margin-right: 4%;
+}
+
+.text-input {
+  padding: 10px;
+  width: 70%;
+}
+
+.clear-btn {
+  padding: 15px;
+  font-size: 20px;
+  margin: 5%;
+}
+
+.list-item {
+  font-size: 20px;
+  border-bottom: 1px solid black;
+  padding: 15px 0;
+  display: flex;
+}
+
+.todo-list {
+  list-style: none;
+  margin: 0 5%;
+}
+
+.delete {
+  height: 20%;
 }
