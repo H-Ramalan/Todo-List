@@ -1,16 +1,17 @@
-let todos = JSON.parse(localStorage.getItem("todos")) || [];
+let todos = JSON.parse(localStorage.getItem('todos')) || [];
 
 export function saveTasks() {
-  localStorage.setItem("todos", JSON.stringify(todos));
+  localStorage.setItem('todos', JSON.stringify(todos));
 }
 
 export function displayTasks() {
-  const todoList = document.querySelector(".todo-list");
-  todoList.innerHTML = ""; // Clear the HTML todo list
+  const todoList = document.querySelector('.todo-list');
+  todoList.innerHTML = '';
 
+  const todos = getTodos();
   todos.forEach((task) => {
-    const li = document.createElement("li");
-    li.className = "list-item";
+    const li = document.createElement('li');
+    li.className = 'list-item';
     li.innerHTML = `
       <input type="checkbox" class="check" />
       <span class='title' data-id="${task.id}" contenteditable='true'>${task.task}</span>
@@ -19,19 +20,17 @@ export function displayTasks() {
     todoList.appendChild(li);
   });
 
-  // Add event listeners for the close buttons
-  const closeButtons = document.querySelectorAll(".close");
+  const closeButtons = document.querySelectorAll('.close');
   closeButtons.forEach((button) => {
-    button.addEventListener("click", (e) => {
+    button.addEventListener('click', (e) => {
       const taskId = parseInt(e.target.dataset.id);
       removeTask(taskId);
     });
   });
 
-  // Add event listeners for editing tasks
-  const titleEl = document.querySelectorAll("span.title");
+  const titleEl = document.querySelectorAll('span.title');
   titleEl.forEach((title) => {
-    title.addEventListener("input", editTask);
+    title.addEventListener('input', editTask);
   });
 }
 
@@ -41,4 +40,22 @@ export function getTodos() {
 
 export function updateTodos(updatedTodos) {
   todos = updatedTodos;
+}
+
+export function removeTask(id) {
+  let todos = getTodos(); // Get the current todos array
+  todos = todos
+    .filter((task) => task.id !== id)
+    .map((task, id) => ({ ...task, id: id + 1 }));
+  updateTodos(todos); // Update the todos array
+  saveTasks();
+  displayTasks();
+}
+
+export function editTask(event) {
+  const taskId = parseInt(event.target.dataset.id);
+  const todos = getTodos();
+  const task = todos.find((t) => t.id === taskId);
+  task.task = event.target.textContent;
+  saveTasks();
 }

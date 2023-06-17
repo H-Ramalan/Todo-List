@@ -1,13 +1,13 @@
-import { getTodos } from "./dataModule.js";
+import { getTodos } from './dataModule.js';
 
 export function displayTasks() {
-  const todoList = document.querySelector(".todo-list");
-  todoList.innerHTML = "";
+  const todoList = document.querySelector('.todo-list');
+  todoList.innerHTML = '';
 
   const todos = getTodos();
   todos.forEach((task) => {
-    const li = document.createElement("li");
-    li.className = "list-item";
+    const li = document.createElement('li');
+    li.className = 'list-item';
     li.innerHTML = `
       <input type="checkbox" class="check" />
       <span class='title' data-id="${task.id}" contenteditable='true'>${task.task}</span>
@@ -16,17 +16,17 @@ export function displayTasks() {
     todoList.appendChild(li);
   });
 
-  const closeButtons = document.querySelectorAll(".close");
+  const closeButtons = document.querySelectorAll('.close');
   closeButtons.forEach((button) => {
-    button.addEventListener("click", (e) => {
+    button.addEventListener('click', (e) => {
       const taskId = parseInt(e.target.dataset.id);
       removeTask(taskId);
     });
   });
 
-  const titleEl = document.querySelectorAll("span.title");
+  const titleEl = document.querySelectorAll('span.title');
   titleEl.forEach((title) => {
-    title.addEventListener("input", editTask);
+    title.addEventListener('input', editTask);
   });
 }
 

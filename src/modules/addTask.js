@@ -1,5 +1,10 @@
-import { saveTasks, displayTasks } from "./dataModule.js";
-const todos = [];
+import {
+  getTodos,
+  updateTodos,
+  saveTasks,
+  displayTasks,
+} from "./dataModule.js";
+
 export function addTask(e) {
   e.preventDefault();
   const taskInput = document.querySelector(".task-input");
@@ -9,6 +14,8 @@ export function addTask(e) {
     return;
   }
 
+  const todos = getTodos(); // Get the current todos array
+
   const newTask = {
     id: todos.length + 1,
     completed: false,
@@ -17,6 +24,7 @@ export function addTask(e) {
 
   todos.push(newTask);
   taskInput.value = "";
+  updateTodos(todos); // Update the todos array
   saveTasks();
   displayTasks();
 }
