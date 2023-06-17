@@ -3,14 +3,14 @@ import {
   updateTodos,
   saveTasks,
   displayTasks,
-} from "./dataModule.js";
+} from './dataModule.js';
 
-export function addTask(e) {
+export default function addTask(e) {
   e.preventDefault();
-  const taskInput = document.querySelector(".task-input");
+  const taskInput = document.querySelector('.task-input');
   const taskText = taskInput.value.trim();
 
-  if (taskText === "") {
+  if (taskText === '') {
     return;
   }
 
@@ -23,7 +23,7 @@ export function addTask(e) {
   };
 
   todos.push(newTask);
-  taskInput.value = "";
+  taskInput.value = '';
   updateTodos(todos); // Update the todos array
   saveTasks();
   displayTasks();

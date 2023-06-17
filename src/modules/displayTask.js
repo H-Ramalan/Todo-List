@@ -1,6 +1,15 @@
-import { getTodos } from './dataModule.js';
+import { getTodos, saveTasks } from './dataModule.js';
+import removeTask from './removeTask.js';
 
-export function displayTasks() {
+function editTask(event) {
+  const taskId = parseInt(event.target.dataset.id, 10);
+  const todos = getTodos();
+  const task = todos.find((t) => t.id === taskId);
+  task.task = event.target.textContent;
+  saveTasks();
+}
+
+export default function displayTasks() {
   const todoList = document.querySelector('.todo-list');
   todoList.innerHTML = '';
 
@@ -19,7 +28,7 @@ export function displayTasks() {
   const closeButtons = document.querySelectorAll('.close');
   closeButtons.forEach((button) => {
     button.addEventListener('click', (e) => {
-      const taskId = parseInt(e.target.dataset.id);
+      const taskId = parseInt(e.target.dataset.id, 10);
       removeTask(taskId);
     });
   });
@@ -28,12 +37,4 @@ export function displayTasks() {
   titleEl.forEach((title) => {
     title.addEventListener('input', editTask);
   });
-}
-
-function editTask(event) {
-  const taskId = parseInt(event.target.dataset.id);
-  const todos = getTodos();
-  const task = todos.find((t) => t.id === taskId);
-  task.task = event.target.textContent;
-  saveTasks();
 }
