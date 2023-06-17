@@ -1,7 +1,11 @@
 import './style/style.css';
 import addTask from './modules/addTask.js';
-import removeTask from './modules/removeTask.js';
-import { displayTasks } from './modules/dataModule.js';
+import {
+  displayTasks,
+  getTodos,
+  saveTasks,
+  updateTodos,
+} from './modules/dataModule.js';
 
 const form = document.querySelector('.form');
 const clearBtn = document.querySelector('.clear-btn');
@@ -9,11 +13,11 @@ const clearBtn = document.querySelector('.clear-btn');
 displayTasks();
 
 function clearTasks() {
-  const checkedItems = document.querySelectorAll('.check:checked');
-  checkedItems.forEach((item) => {
-    const taskId = parseInt(item.nextElementSibling.dataset.id, 10);
-    removeTask(taskId);
-  });
+  const todos = getTodos();
+  const todoToClear = todos.filter((x) => x.completed === false);
+  updateTodos(todoToClear);
+  saveTasks();
+  displayTasks();
 }
 
 form.addEventListener('submit', addTask);
