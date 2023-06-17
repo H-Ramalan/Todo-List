@@ -1,3 +1,5 @@
+import statusChange from './statusModule.js';
+
 let todos = JSON.parse(localStorage.getItem('todos')) || [];
 
 export function saveTasks() {
@@ -40,7 +42,7 @@ export function displayTasks() {
     const li = document.createElement('li');
     li.className = 'list-item';
     li.innerHTML = `
-      <input type="checkbox" class="check" />
+      <input type="checkbox" class="check" data-id="${task.id}" />
       <span class='title' data-id="${task.id}" contenteditable='true'>${task.task}</span>
       <span class="material-icons close" data-id="${task.id}">close</span>
     `;
@@ -52,6 +54,18 @@ export function displayTasks() {
     button.addEventListener('click', (e) => {
       const taskId = parseInt(e.target.dataset.id, 10);
       removeTask(taskId);
+    });
+  });
+
+  const checkboxs = document.querySelectorAll('.check');
+  checkboxs.forEach((button) => {
+    button.addEventListener('change', (e) => {
+      const todos = getTodos(); // Get the current todos array
+      const taskId = parseInt(e.target.dataset.id, 10);
+      const itemToUpdate = todos.find((x) => x.id === taskId);
+      statusChange(itemToUpdate);
+      updateTodos(todos);
+      saveTasks();
     });
   });
 
