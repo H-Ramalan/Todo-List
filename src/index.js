@@ -1,27 +1,20 @@
-import './style.css';
+import './style/style.css';
+import addTask from './modules/addTask.js';
+import removeTask from './modules/removeTask.js';
+import { displayTasks } from './modules/dataModule.js';
 
-const todoList = document.querySelector('.todo-list');
-const todos = [
-  {
-    index: 1,
-    completed: true,
-    task: 'Wash the dish',
-  },
-  {
-    index: 2,
-    completed: true,
-    task: 'Go to the gym',
-  },
-];
+const form = document.querySelector('.form');
+const clearBtn = document.querySelector('.clear-btn');
 
-function displayTasks() {
-  todos.forEach((todos) => {
-    const li = document.createElement('li');
-    li.className = 'list-item';
+displayTasks();
 
-    li.innerHTML = `<input type="checkbox" class="check" /> ${todos.task} <span class="material-icons" id="close">close</span>`;
-
-    todoList.appendChild(li);
+function clearTasks() {
+  const checkedItems = document.querySelectorAll('.check:checked');
+  checkedItems.forEach((item) => {
+    const taskId = parseInt(item.nextElementSibling.dataset.id, 10);
+    removeTask(taskId);
   });
 }
-displayTasks();
+
+form.addEventListener('submit', addTask);
+clearBtn.addEventListener('click', clearTasks);
